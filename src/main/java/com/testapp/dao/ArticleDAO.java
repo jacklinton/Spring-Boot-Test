@@ -1,18 +1,18 @@
-package com.concretepage.dao;
+package com.testapp.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.concretepage.entity.Article;
+import com.testapp.entity.Article;
 @Transactional
 @Repository
-public class ArticleDAO implements com.concretepage.dao.IArticleDAO {
+public class ArticleDAO implements com.testapp.dao.IArticleDAO {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
     public Article getArticleById(int articleId) {
-        return entityManager.find(Article.class, articleId)
+        return entityManager.find(Article.class, articleId);
     }
     @SuppressWarnings("unchecked")
     @Override
@@ -21,12 +21,12 @@ public class ArticleDAO implements com.concretepage.dao.IArticleDAO {
         return (List<Article>) entityManager.createQuery(hql).getResultList();
     }
     @Override
-    public void AddArticle(Article article) {
+    public void addArticle(Article article) {
         entityManager.persist(article);
     }
     @Override
-    public void addArticle(Article article) {
-        Article artcl = getArticleById(article.getArticleId())
+    public void updateArticle(Article article) {
+        Article artcl = getArticleById(article.getArticleId());
         artcl.setTitle(article.getTitle());
         artcl.setCategory(article.getCategory());
         entityManager.flush();
